@@ -1,4 +1,5 @@
 import 'package:catering_service_adming/constant.dart';
+import 'package:catering_service_adming/views/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
@@ -17,6 +18,7 @@ class _DashboardState extends State<Dashboard> {
         title: Text("Dashboard", style: AppTextStyle.normalText(fontSize: 20)),
         centerTitle: true,
       ),
+      drawer: const AppDrawer(),
     );
   }
 }
