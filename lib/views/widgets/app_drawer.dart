@@ -48,7 +48,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   style: AppTextStyle.normalText(),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, 'home');
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/');
                 },
               ),
               ListTile(
@@ -58,7 +59,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   style: AppTextStyle.normalText(),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, 'home');
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, 'order');
                 },
               ),
               ListTile(
@@ -68,8 +70,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   style: AppTextStyle.normalText(),
                 ),
                 onTap: () {
-                  // Navigator.pop(context);
-                  Navigator.pushNamed(context, 'normalPoll');
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, 'categories');
                 },
               ),
               ListTile(
@@ -79,7 +81,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   style: AppTextStyle.normalText(),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, 'surveyPoll');
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, 'slider');
                 },
               ),
               ListTile(
@@ -89,12 +92,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   style: AppTextStyle.normalText(),
                 ),
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const AboutUsPage(),
-                  //   ),
-                  // );
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, 'products');
                 },
               ),
             ],

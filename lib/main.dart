@@ -1,3 +1,4 @@
+import 'package:catering_service_adming/constant.dart';
 import 'package:catering_service_adming/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,11 @@ class MyApp extends StatelessWidget {
       title: 'HotCase',
       theme: ThemeData(
         useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          backgroundColor: ColorConstant.secondaryColor,
+          centerTitle: true,
+          titleTextStyle: AppTextStyle.normalText(fontSize: 20),
+        ),
       ),
       initialRoute: "/",
       routes: appRoutes,
