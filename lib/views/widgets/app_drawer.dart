@@ -42,6 +42,16 @@ class _AppDrawerState extends State<AppDrawer> {
           Column(
             children: [
               ListTile(
+                leading: const Icon(Iconsax.home),
+                title: Text(
+                  "Home",
+                  style: AppTextStyle.normalText(),
+                ),
+                onTap: () {
+                  Navigator.pushNamed(context, 'home');
+                },
+              ),
+              ListTile(
                 leading: const Icon(Iconsax.discover),
                 title: Text(
                   "Order",
