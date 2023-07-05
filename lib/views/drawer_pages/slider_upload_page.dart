@@ -10,10 +10,18 @@ class SliderPage extends StatefulWidget {
 }
 
 class _SliderPageState extends State<SliderPage> {
+  XFile? pickedImage;
+  bool isPickedImage = false;
+
   Future pickImage() async {
     try {
       final ImagePicker imagePicker = ImagePicker();
-      await imagePicker.pickImage(source: ImageSource.gallery);
+      pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        setState(() {
+          isPickedImage = true;
+        });
+      }
     } catch (e) {
       print(e);
     }
@@ -29,12 +37,15 @@ class _SliderPageState extends State<SliderPage> {
         child: Column(
           children: [
             //Picked Image
-            Container(
-              height: MediaQuery.of(context).size.height * 0.3,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.red,
-              // child: ,
-            ),
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.width,
+                // child: isPickedImage
+                //     ? XFileImage(pickedImage!)
+                // :
+                child: Image.asset('assets/images/jeri.png')
+                // child: ,
+                ),
             const SizedBox(
               height: 20,
             ),
