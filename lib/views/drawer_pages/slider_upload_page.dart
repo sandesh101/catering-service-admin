@@ -1,5 +1,6 @@
 import 'package:catering_service_adming/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SliderPage extends StatefulWidget {
   const SliderPage({super.key});
@@ -9,6 +10,15 @@ class SliderPage extends StatefulWidget {
 }
 
 class _SliderPageState extends State<SliderPage> {
+  Future pickImage() async {
+    try {
+      final ImagePicker imagePicker = ImagePicker();
+      await imagePicker.pickImage(source: ImageSource.gallery);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +42,7 @@ class _SliderPageState extends State<SliderPage> {
             GestureDetector(
               onTap: () {
                 print('TAPPED');
+                pickImage();
               },
               child: Container(
                 height: 60,
@@ -94,14 +105,17 @@ class _SliderPageState extends State<SliderPage> {
                     mainAxisSpacing: 10,
                   ),
                   itemBuilder: (context, index) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.red,
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.red,
+                        ),
+                        child: const Center(child: Text("Hello")),
                       ),
-                      child: const Center(child: Text("Hello")),
                     );
                   }),
             )
