@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:catering_service_adming/constant.dart';
+import 'package:catering_service_adming/views/widgets/snackbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cross_file_image/cross_file_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,8 +16,13 @@ class SliderPage extends StatefulWidget {
 }
 
 class _SliderPageState extends State<SliderPage> {
+  //creating instance of firebase storage
+  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   XFile? pickedImage;
   bool isPickedImage = false;
+  String imageUniqueName = '';
+  bool isUploadSuccess = true;
 
   Future pickImage() async {
     try {
@@ -21,10 +31,48 @@ class _SliderPageState extends State<SliderPage> {
       if (pickedImage != null) {
         setState(() {
           isPickedImage = true;
+          imageUniqueName = DateTime.now().millisecondsSinceEpoch.toString() +
+              pickedImage!.name;
+        });
+      }
+      // print(imageUniqueName);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+//Function to upload images to cloud storage
+  uploadSliderImages(dynamic image) async {
+    Reference ref =
+        _firebaseStorage.ref().child('Sliders').child(imageUniqueName);
+    UploadTask uploadTask = ref.putFile(File(image.path).absolute);
+    TaskSnapshot taskSnapshot = await uploadTask;
+
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+//Function to upload images to firestore database
+  uploadToDatabase() async {
+    try {
+      setState(() {
+        isUploadSuccess = false;
+      });
+      if (isPickedImage) {
+        String imageUrl = await uploadSliderImages(pickedImage);
+        await _firebaseFirestore
+            .collection('sliders')
+            .doc(imageUniqueName)
+            .set({"images": imageUrl}).then((value) {
+          setState(() {
+            isUploadSuccess = true;
+          });
+          CustomSnackbar.showSuccessSnack(
+              context, "Image Uploaded Successfully");
         });
       }
     } catch (e) {
-      print(e);
+      print(e.toString());
     }
   }
 
@@ -53,28 +101,59 @@ class _SliderPageState extends State<SliderPage> {
               height: 20,
             ),
             //Button to pick image
-            GestureDetector(
-              onTap: () {
-                print('TAPPED');
-                pickImage();
-              },
-              child: Container(
-                height: 60,
-                width: 230,
-                decoration: BoxDecoration(
-                  color: ColorConstant.secondaryColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Text(
-                    "Pick Image",
-                    style: AppTextStyle.normalText(
-                      fontSize: 20,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    pickImage();
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.secondaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Pick Image",
+                        style: AppTextStyle.normalText(
+                          fontSize: 20,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                isPickedImage
+                    ? GestureDetector(
+                        onTap: () {
+                          uploadToDatabase();
+                        },
+                        child: Container(
+                          height: 60,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            color: ColorConstant.secondaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: isUploadSuccess
+                                ? Text(
+                                    "Save Image",
+                                    style: AppTextStyle.normalText(
+                                      fontSize: 20,
+                                    ),
+                                  )
+                                : const CircularProgressIndicator(),
+                          ),
+                        ),
+                      )
+                    : Container(),
+              ],
             ),
+            //Button to pick image
+
             const SizedBox(
               height: 20,
             ),
