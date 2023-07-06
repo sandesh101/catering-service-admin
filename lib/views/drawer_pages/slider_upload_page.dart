@@ -1,4 +1,5 @@
 import 'package:catering_service_adming/constant.dart';
+import 'package:cross_file_image/cross_file_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -40,10 +41,12 @@ class _SliderPageState extends State<SliderPage> {
             SizedBox(
                 height: MediaQuery.of(context).size.height * 0.3,
                 width: MediaQuery.of(context).size.width,
-                // child: isPickedImage
-                //     ? XFileImage(pickedImage!)
-                // :
-                child: Image.asset('assets/images/jeri.png')
+                child: isPickedImage
+                    ? Image(
+                        fit: BoxFit.contain,
+                        image: XFileImage(pickedImage!),
+                      )
+                    : Image.asset('assets/images/default_placeholder.png')
                 // child: ,
                 ),
             const SizedBox(
