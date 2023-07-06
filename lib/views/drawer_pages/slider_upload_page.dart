@@ -7,6 +7,7 @@ import 'package:cross_file_image/cross_file_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 
 class SliderPage extends StatefulWidget {
   const SliderPage({super.key});
@@ -145,7 +146,10 @@ class _SliderPageState extends State<SliderPage> {
                                       fontSize: 20,
                                     ),
                                   )
-                                : const CircularProgressIndicator(),
+                                : Lottie.asset(
+                                    'assets/animations/loading.json',
+                                    height: 120,
+                                  ),
                           ),
                         ),
                       )
