@@ -1,5 +1,6 @@
 import 'package:catering_service_adming/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
@@ -9,6 +10,13 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  List<String> foodItems = [
+    "Momo",
+    "Pizza",
+    "Burger",
+    "French Fries",
+    "Chicken Chilli"
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,123 +24,128 @@ class _OrderPageState extends State<OrderPage> {
         title: const Text('Order'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          //Headers
-          Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Table(
-              border: TableBorder.all(),
-              children: [
-                TableRow(
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          "SN",
-                          style: AppTextStyle.boldText(
-                              fontSize: 18, fontWeight: FontWeight.w600),
-                        ),
-                      ],
+      body: ListView.builder(
+          shrinkWrap: true,
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 8.0, left: 10.0, right: 10.0),
+              child: Stack(
+                children: [
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.blackColor,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    Column(
+                    child: Column(
                       children: [
-                        Text(
-                          "Date",
-                          style: AppTextStyle.boldText(
-                              fontSize: 18, fontWeight: FontWeight.w600),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: Container(
+                            height: 50,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              // color: Colors.red,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Sandesh Rimal",
+                                  style: AppTextStyle.normalText(
+                                      color: ColorConstant.primaryColor),
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(Iconsax.calendar_1,
+                                        color: ColorConstant.primaryColor),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "2080-09-09",
+                                      style: AppTextStyle.normalText(
+                                          color: ColorConstant.primaryColor),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          "Location",
-                          style: AppTextStyle.boldText(
-                              fontSize: 18, fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          "No. of People",
-                          style: AppTextStyle.boldText(
-                              fontSize: 18, fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          //Headers
-          //Table body
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0),
-              child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return Table(
-                      border: TableBorder.all(),
-                      children: [
-                        TableRow(
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Column(
-                              children: [
-                                Text(
-                                  "${index + 1}",
-                                  style: AppTextStyle.normalText(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "2080-01-02",
-                                  style: AppTextStyle.normalText(
-                                    fontSize: 14,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Jrankhu",
-                                  style: AppTextStyle.normalText(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "10",
-                                  style: AppTextStyle.normalText(
-                                    fontSize: 16,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
+                            Icon(Iconsax.location,
+                                color: ColorConstant.primaryColor),
+                            Text(
+                              "Jarankhu, Kathmandu",
+                              style: AppTextStyle.normalText(
+                                  fontSize: 18,
+                                  color: ColorConstant.primaryColor),
+                            )
                           ],
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 100,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            // color: Colors.red,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  "Food Items 👇",
+                                  style: AppTextStyle.normalText(
+                                      fontSize: 18,
+                                      color: ColorConstant.primaryColor),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListView.builder(
+                                    itemCount: foodItems.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 40.0),
+                                        child: Text(
+                                          "- ${foodItems[index]}",
+                                          style: AppTextStyle.normalText(
+                                              color:
+                                                  ColorConstant.primaryColor),
+                                        ),
+                                      );
+                                    }),
+                              )
+                            ],
+                          ),
+                        ),
                       ],
-                    );
-                  }),
-            ),
-          ),
-          //Table body
-        ],
-      ),
+                    ),
+                  ),
+                  const Positioned(
+                    top: 100,
+                    left: 200,
+                    child: Image(
+                      height: 100,
+                      image: AssetImage('assets/images/jeri.png'),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
     );
   }
 }
