@@ -29,7 +29,7 @@ class _SliderPageState extends State<SliderPage> {
   Future pickImage() async {
     try {
       final ImagePicker imagePicker = ImagePicker();
-      pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+      pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
       if (pickedImage != null) {
         setState(() {
           isPickedImage = true;
@@ -111,8 +111,8 @@ class _SliderPageState extends State<SliderPage> {
                     pickImage();
                   },
                   child: Container(
-                    height: 60,
-                    width: 200,
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     decoration: BoxDecoration(
                       color: ColorConstant.secondaryColor,
                       borderRadius: BorderRadius.circular(10),
@@ -133,8 +133,8 @@ class _SliderPageState extends State<SliderPage> {
                           uploadToDatabase();
                         },
                         child: Container(
-                          height: 60,
-                          width: 200,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.4,
                           decoration: BoxDecoration(
                             color: ColorConstant.secondaryColor,
                             borderRadius: BorderRadius.circular(10),
