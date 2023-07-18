@@ -1,7 +1,9 @@
 import 'package:catering_service_adming/constant.dart';
+import 'package:catering_service_adming/provider/order_provider.dart';
 import 'package:catering_service_adming/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,19 +16,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'HotCase',
-      theme: ThemeData(
-        useMaterial3: true,
-        appBarTheme: AppBarTheme(
-          backgroundColor: ColorConstant.secondaryColor,
-          centerTitle: true,
-          titleTextStyle: AppTextStyle.normalText(fontSize: 20),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<OrderProvider>(create: (_) => OrderProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'HotCase',
+        theme: ThemeData(
+          useMaterial3: true,
+          appBarTheme: AppBarTheme(
+            backgroundColor: ColorConstant.secondaryColor,
+            centerTitle: true,
+            titleTextStyle: AppTextStyle.normalText(fontSize: 20),
+          ),
         ),
+        initialRoute: "/",
+        routes: appRoutes,
       ),
-      initialRoute: "/",
-      routes: appRoutes,
     );
   }
 }
