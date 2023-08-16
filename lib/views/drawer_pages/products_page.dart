@@ -99,10 +99,12 @@ class _ProductPageState extends State<ProductPage> {
                             if (_formKey.currentState!.validate()) {
                               await provider
                                   .uploadToDatabase(_productController.text)
-                                  .then(
-                                    (value) => CustomSnackbar.showSuccessSnack(
-                                        context, "Product Added!!"),
-                                  );
+                                  .then((value) {
+                                _productController.text = "";
+                                provider.setIsPickedImage(false);
+                                CustomSnackbar.showSuccessSnack(
+                                    context, "Product Added!!");
+                              });
                             }
                           },
                           child: Container(
