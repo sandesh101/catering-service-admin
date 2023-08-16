@@ -1,5 +1,6 @@
 import 'package:catering_service_adming/constant.dart';
 import 'package:catering_service_adming/provider/order_provider.dart';
+import 'package:catering_service_adming/provider/product_provider.dart';
 import 'package:catering_service_adming/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<OrderProvider>(create: (_) => OrderProvider()),
+        ChangeNotifierProvider<ProductProvider>(
+            create: (_) => ProductProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
