@@ -1,6 +1,5 @@
 import 'package:catering_service_adming/constant.dart';
 import 'package:catering_service_adming/provider/order_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -13,16 +12,6 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-  // late List<dynamic> orderList;
-
-  // Future<void> getOrders() async {
-  //   CollectionReference ref = FirebaseFirestore.instance.collection('orders');
-  //   QuerySnapshot orederSnap = await ref.get();
-
-  //   orderList = orederSnap.docs.map((doc) => doc.data()).toList();
-  //   print("Orders: ${orderList[0]}");
-  // }
-
   @override
   void initState() {
     super.initState();

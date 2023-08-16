@@ -85,105 +85,107 @@ class _ProductPageState extends State<ProductPage> {
       appBar: AppBar(
         title: const Text('Products'),
       ),
-      body: Column(
-        children: [
-          Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                controller: _productController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Must Have Product Name';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  label: Text(
-                    "Add Product",
-                    style: AppTextStyle.normalText(),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              width: MediaQuery.of(context).size.width,
-              child: isPickedImage
-                  ? Image(
-                      fit: BoxFit.contain,
-                      image: XFileImage(pickedImage!),
-                    )
-                  : Image.asset('assets/images/default_placeholder.png')
-              // child: ,
-              ),
-          const SizedBox(
-            height: 20,
-          ),
-          //Button to pick image
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  pickImage();
-                },
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.08,
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  decoration: BoxDecoration(
-                    color: ColorConstant.secondaryColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Pick Image",
-                      style: AppTextStyle.normalText(
-                        fontSize: 20,
-                      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _productController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Must Have Product Name';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    label: Text(
+                      "Add Product",
+                      style: AppTextStyle.normalText(),
                     ),
                   ),
                 ),
               ),
-              isPickedImage
-                  ? GestureDetector(
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          uploadToDatabase(_productController.text);
-                        }
-                      },
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        decoration: BoxDecoration(
-                          color: ColorConstant.secondaryColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: isUploadSuccess
-                              ? Text(
-                                  "Save Product",
-                                  style: AppTextStyle.normalText(
-                                    fontSize: 20,
-                                  ),
-                                )
-                              : Lottie.asset(
-                                  'assets/animations/loading.json',
-                                  height: 120,
-                                ),
+            ),
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.width,
+                child: isPickedImage
+                    ? Image(
+                        fit: BoxFit.contain,
+                        image: XFileImage(pickedImage!),
+                      )
+                    : Image.asset('assets/images/default_placeholder.png')
+                // child: ,
+                ),
+            const SizedBox(
+              height: 20,
+            ),
+            //Button to pick image
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    pickImage();
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.secondaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Pick Image",
+                        style: AppTextStyle.normalText(
+                          fontSize: 20,
                         ),
                       ),
-                    )
-                  : Container(),
-            ],
-          ),
-          //Button to pick image
-        ],
+                    ),
+                  ),
+                ),
+                isPickedImage
+                    ? GestureDetector(
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            uploadToDatabase(_productController.text);
+                          }
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          decoration: BoxDecoration(
+                            color: ColorConstant.secondaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: isUploadSuccess
+                                ? Text(
+                                    "Save Product",
+                                    style: AppTextStyle.normalText(
+                                      fontSize: 20,
+                                    ),
+                                  )
+                                : Lottie.asset(
+                                    'assets/animations/loading.json',
+                                    height: 120,
+                                  ),
+                          ),
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
+            //Button to pick image
+          ],
+        ),
       ),
     );
   }
