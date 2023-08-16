@@ -39,7 +39,7 @@ class _SliderPageState extends State<SliderPage> {
       }
       // print(imageUniqueName);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -74,7 +74,7 @@ class _SliderPageState extends State<SliderPage> {
         });
       }
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 

@@ -26,7 +26,7 @@ class CustomSnackbar {
       duration: const Duration(seconds: 2),
       elevation: 3.0,
       // width: MediaQuery.of(context).size.width * 0.2,
-      backgroundColor: Color.fromARGB(255, 56, 202, 27),
+      backgroundColor: const Color.fromARGB(255, 56, 202, 27),
       content: Text(
         message,
         style: AppTextStyle.normalText(color: ColorConstant.primaryColor),

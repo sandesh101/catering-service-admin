@@ -1,4 +1,5 @@
 import 'package:catering_service_adming/constant.dart';
+import 'package:catering_service_adming/provider/dashboard_provider.dart';
 import 'package:catering_service_adming/provider/order_provider.dart';
 import 'package:catering_service_adming/provider/product_provider.dart';
 import 'package:catering_service_adming/routes.dart';
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<OrderProvider>(create: (_) => OrderProvider()),
         ChangeNotifierProvider<ProductProvider>(
             create: (_) => ProductProvider()),
+        ChangeNotifierProvider<DashboardProvider>(
+            create: (_) => DashboardProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -18,10 +18,8 @@ class OrderProvider extends ChangeNotifier {
 
       final data = orderSnap.docs.map((docs) => docs.data()).toList();
       await setOrderList(data);
-
-      // print("DATA: $data");
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 }

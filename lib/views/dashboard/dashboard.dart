@@ -1,5 +1,6 @@
 import 'package:catering_service_adming/constant.dart';
 import 'package:catering_service_adming/provider/order_provider.dart';
+import 'package:catering_service_adming/provider/product_provider.dart';
 import 'package:catering_service_adming/views/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await Provider.of<OrderProvider>(context, listen: false).getOrders();
+      await Provider.of<ProductProvider>(context, listen: false).getProducts();
     });
   }
 
@@ -31,7 +33,7 @@ class _DashboardState extends State<Dashboard> {
         ),
         drawer: const AppDrawer(),
         body: Consumer<OrderProvider>(builder: (context, orderProvider, _) {
-          print(orderProvider.orderList);
+          // print(orderProvider.orderList);
           return Column(
             children: [
               const SizedBox(
@@ -65,35 +67,37 @@ class _DashboardState extends State<Dashboard> {
                       ],
                     ),
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.red,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "3",
-                              style: AppTextStyle.boldText(
-                                color: ColorConstant.primaryColor,
-                                fontSize: 30,
-                              ),
-                            ),
-                            Text(
-                              "Orders",
-                              style: AppTextStyle.normalText(
+                  Consumer<ProductProvider>(
+                    builder: (context, value, child) => Container(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.red,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                value.productList.length.toString(),
+                                style: AppTextStyle.boldText(
                                   color: ColorConstant.primaryColor,
-                                  fontSize: 18),
-                            ),
-                          ],
-                        ),
-                      ],
+                                  fontSize: 30,
+                                ),
+                              ),
+                              Text(
+                                "Products",
+                                style: AppTextStyle.normalText(
+                                    color: ColorConstant.primaryColor,
+                                    fontSize: 18),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

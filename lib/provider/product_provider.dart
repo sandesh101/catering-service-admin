@@ -12,11 +12,13 @@ class ProductProvider extends ChangeNotifier {
   bool _isPickedImage = false;
   String _imageUniqueName = '';
   bool _isUploadSuccess = true;
+  List<dynamic> _productList = [];
 
   XFile? get pickedImage => _pickedImage;
   bool get isPickedImage => _isPickedImage;
   String get imageUniqueName => _imageUniqueName;
   bool get isUploadSuccess => _isUploadSuccess;
+  List<dynamic> get productList => _productList;
 
   setIsPickedImage(bool value) {
     _isPickedImage = value;
@@ -39,6 +41,11 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  setProductList(List<dynamic> product) {
+    _productList = product;
+    notifyListeners();
+  }
+
   Future pickImage() async {
     try {
       final ImagePicker imagePicker = ImagePicker();
@@ -49,7 +56,7 @@ class ProductProvider extends ChangeNotifier {
       }
       // print(imageUniqueName);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -79,7 +86,22 @@ class ProductProvider extends ChangeNotifier {
         });
       }
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
+    }
+  }
+
+  Future getProducts() async {
+    try {
+      CollectionReference ref =
+          FirebaseFirestore.instance.collection('products');
+      QuerySnapshot orderSnap = await ref.get();
+
+      final data = orderSnap.docs.map((docs) => docs.data()).toList();
+      await setProductList(data);
+
+      // print("DATA: $data");
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 }
