@@ -62,7 +62,8 @@ class _OrderPageState extends State<OrderPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Sandesh Rimal",
+                                      orderProvider.orderList[index]['name']
+                                          .toString(),
                                       style: AppTextStyle.normalText(
                                           color: ColorConstant.primaryColor),
                                     ),
@@ -92,8 +93,12 @@ class _OrderPageState extends State<OrderPage> {
                               children: [
                                 Icon(Iconsax.location,
                                     color: ColorConstant.primaryColor),
+                                const SizedBox(
+                                  width: 6,
+                                ),
                                 Text(
-                                  "Jarankhu, Kathmandu",
+                                  orderProvider.orderList[index]['location']
+                                      .toString(),
                                   style: AppTextStyle.normalText(
                                       fontSize: 18,
                                       color: ColorConstant.primaryColor),
